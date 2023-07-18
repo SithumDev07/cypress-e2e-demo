@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@300&display=swap');
+
+:root {
+  --green :#008272;
+  --greend : #00564B;
+  --greenl : #BFDFDB;
+  --black : #101010;
+  --white : #fff;
+  --offwhite : #f0f0f0;
+  --red : #c30427;
+  --redl : #fdced6;
+  --yellow : #E5CF05;
+  --gray : #707070;
+
+}
+
+/* ! Public */
+
+body {
+  /* background: var(--greenl); */
+  margin: 0;
+  font-family: "Poppins";
+}
+
+.navbar {
+  background: #00564B;
+}
+
+.red {
+  color: var(--red);
+}
+
+.custBgLight{
+  color: var(--black);
+  background-color: var(--greenl);
+}
+.custErrorBgLight{
+  color: var(--black);
+  background-color: var(--redl);
+}
+.custErrorBg{
+  color: var(--black);
+  background-color: var(--red);
+}
+.CustBgNormal{
+  color: var(--black);
+  background-color: var(--white);
+}
+
+.custBgDark{
+  color: var(--white);
+  background-color: var(--greend);
+}
+
+Popover.Header {
+  background-color: var(--greend);
+  
+}
+
+.registration {
+  background-color: var(--greenl);
+}
+
+.custBtn {
+  background-color: var(--greenl);
+  color: #E5052E;
+}
+
+.custBtn:hover {
+  box-shadow: none;
+  background-color: var(--greenl);
+
+}
+
+.input-field{
+  background-color: var(--green);
+  box-shadow: none;
+}
+
+.custInput {
+  box-shadow: none;
+  background-color: var(--white);
+}
+.custInput:focus {
+  box-shadow: none;
+  border-color: var(--greend);
+}
+
+/* ! Header */
+
+.headerBg {
+  background-color: var(--green);
+  font-size: large;
+  font-weight:400;
+  color: var(--white);
+  border-radius: 10px;
+}
+
+/* ! Classes */
+.leftborder{
+  border-width: 10px solid var(--black);
+}
+
+.Card {
+  border-radius: 5px;
+  box-shadow:inset;
+  /* padding-inline: 1%; */
+  /* max-width: 50%; */
+  /* display: flex; */
+  /* justify-content: center; */
+}
+
+.head {
+  border-radius: 5px;
+}
