@@ -27,9 +27,11 @@ const authUser = (
                 return res.status(400).json({errors: [{msg : "Invalid credentials"}]})
             }
             
-            const isMatch = bcrypt.compare(password, user.password)
-
+            // console.log("ISMATCH", password, user.password)
+            const isMatch = await bcrypt.compare(password, user.password)
+            console.log("ISMATCH", isMatch)
             if(!isMatch) {
+                console.log("TEST")
                 return res.status(400).json({errors: [{msg: 'Invalid credentials'}]});
             }
             let payload;
