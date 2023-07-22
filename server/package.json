@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "be": "nodemon server.js",
-    "fe": "npm start --prefix ../frontend-new",
+    "fe": "npm start --prefix ../client",
     "server": "concurrently \"npm run be\" \"npm run fe\""
   },
   "author": "AR",
