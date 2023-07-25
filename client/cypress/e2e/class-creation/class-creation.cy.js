@@ -30,13 +30,13 @@ describe('Create class', () => {
         
         it('should open and blur the class type dropdown', () => {
             
-            cy.get('[placeholder="Select class type"]') .as('instructorAutocomplete');
+            cy.get('[placeholder="Select class type"]') .as('classAutocomplete');
 
-            cy.get('@instructorAutocomplete').click();
+            cy.get('@classAutocomplete').click();
 
-            cy.get('@instructorAutocomplete').blur();
+            cy.get('@classAutocomplete').blur();
 
-            cy.get('@instructorAutocomplete').click();
+            cy.get('@classAutocomplete').click();
     
             cy.get('[role="option"]').should('have.length.above', 0);
 
