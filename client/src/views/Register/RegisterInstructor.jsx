@@ -377,7 +377,7 @@ const RegisterStudent = () => {
                                     options={Subjects}
                                     groupBy={(options)=>options.level}
                                     disabled={false}
-                                    name="level"
+                                    name="subject"
                                     getOptionLabel={(option) => option.label}
                                     renderInput={(params) => (
                                         <TextValidator
