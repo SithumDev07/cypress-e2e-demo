@@ -20,12 +20,12 @@ describe('Create Class', () => {
       const password = "ASas!@12";
       
       cy.get('input[type="email"]').type(`${email}`)
-      cy.get('input[type="password"]').type(`${email}`)
+      cy.get('input[type="password"]').type(`${password}`)
       cy.get('button').contains("Login").click()
       cy.get('button').contains("Register Instructor").click()
     })
     
-    
+
 
     // it("Should navigate to create class button", () => {
     // })
