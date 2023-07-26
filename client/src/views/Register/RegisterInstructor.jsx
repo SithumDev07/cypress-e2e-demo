@@ -317,11 +317,13 @@ const RegisterStudent = () => {
                                     }}
                                     validators={[
                                         'required',
-                                        // 'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                                        'matchRegexp:^[0-9]{9}[VX]|[0-9]{12}$',
+                                        'matchRegexp:^([0-9]{2}([0-3]{1}|[5-8]{1})[0-9]{6}[VX])|([0-9]{12})$',
                                     ]}
                                     errorMessages={[
                                         'This field is required',
                                         'NIC number is invalid',
+                                        'NIC number is invalid....',
                                     ]}
                                 />
                             </Grid>
@@ -346,7 +348,7 @@ const RegisterStudent = () => {
                                         accNumber
                                     }
                                     disabled={false}
-                                    type="text"
+                                    type="number"
                                     variant="outlined"
                                     size="small"
                                     onChange={(e) => {
@@ -354,11 +356,11 @@ const RegisterStudent = () => {
                                     }}
                                     validators={[
                                         'required',
-                                        // 'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                                        'matchRegexp:^[0-9]{20}$',
                                     ]}
                                     errorMessages={[
                                         'This field is required',
-                                        'NIC number is invalid',
+                                        'Account number is invalid',
                                     ]}
                                 />
                             </Grid>
