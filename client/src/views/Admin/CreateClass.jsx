@@ -119,6 +119,7 @@ const CreateClass = () => {
                                     <SubTitle title="Instructor Name" required/>
                                         <Autocomplete
                                             // color='green'
+                                            role="instructor-list"
                                             className="w-full"
                                             options={instructorList}
                                             disabled={false}
