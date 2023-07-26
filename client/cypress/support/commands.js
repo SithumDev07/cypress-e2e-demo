@@ -55,4 +55,29 @@ Cypress.Commands.add('loginCommand', (email, password) => {
     });
 
     cy.url().should("include", "profile");
-})
+});
+
+Cypress.Commands.add("GetAllInstructors", () => {
+
+    return cy.getAllLocalStorage().then((storageMap) => {
+        const originData = storageMap['http://localhost:3000'];
+        const token = originData['token'];
+
+        return cy.request({
+            method: "GET",
+            url: "http://localhost:4000/akura/instructor",
+            headers: {
+                'x-auth-token': token
+            }
+        }).then(res => {
+
+            let instructors = [];
+
+            res.body.map((instructor) => {
+                instructors.push(`${instructor.firstName.trim()} ${instructor.lastName.trim()}`);
+            })
+
+            return instructors;
+        });
+    });
+});
