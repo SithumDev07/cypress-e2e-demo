@@ -11,9 +11,21 @@ describe('Create class', () => {
         cy.loginCommand("admin@gmail.com", "ASas!@12");
         cy.get('[href="/class/create"] > .MuiButtonBase-root').as("CreateClassButton");
         cy.get("@CreateClassButton").click();
-
-
     })
+
+    describe("Accessing create class page", () => {
+
+        // TODO:
+        it("should navigate to create class page for authorized users", () => {
+
+        });
+
+        // TODO:
+        it("should not navigate to create class page for unauthorized users", () => {
+
+        });
+
+    });
 
     // TODO: Sithum
     describe('Select instructor', () => {
@@ -101,6 +113,11 @@ describe('Create class', () => {
         )
 
 
-    })
+    });
+
+    // TODO: Sithum
+    describe("Select date", () => {
+
+    });
 
 })
