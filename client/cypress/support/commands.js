@@ -27,13 +27,6 @@
 //   cy.visit("/login");
 // });
 
-// In "cypress/support/commands.js" (create the file if it doesn't exist)
-Cypress.Commands.add("isStrongPassword", (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordRegex.test(password);
-  });
-
-  
 Cypress.Commands.add('loginCommand', (email, password) => {
 
     cy.visit("http://localhost:3000")
@@ -61,7 +54,36 @@ Cypress.Commands.add('loginCommand', (email, password) => {
         });
     });
 
-
-
     cy.url().should("include", "profile");
-})
+});
+
+Cypress.Commands.add("GetAllInstructors", () => {
+
+    return cy.getAllLocalStorage().then((storageMap) => {
+        const originData = storageMap['http://localhost:3000'];
+        const token = originData['token'];
+
+        return cy.request({
+            method: "GET",
+            url: "http://localhost:4000/akura/instructor",
+            headers: {
+                'x-auth-token': token
+            }
+        }).then(res => {
+
+            let instructors = [];
+
+            res.body.map((instructor) => {
+                instructors.push(`${instructor.firstName.trim()} ${instructor.lastName.trim()}`);
+            })
+
+            return instructors;
+        });
+    });
+});
+
+// In "cypress/support/commands.js" (create the file if it doesn't exist)
+Cypress.Commands.add("isStrongPassword", (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  });
