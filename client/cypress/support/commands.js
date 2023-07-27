@@ -26,3 +26,42 @@
 // Cypress.Commands.add("login", () => {
 //   cy.visit("/login");
 // });
+
+// In "cypress/support/commands.js" (create the file if it doesn't exist)
+Cypress.Commands.add("isStrongPassword", (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  });
+
+  
+Cypress.Commands.add('loginCommand', (email, password) => {
+
+    cy.visit("http://localhost:3000")
+    cy.get('button[type="submit"]').as("LoginButton");
+    cy.get('input[type="email"]').as("EmailInputField");
+    cy.get('input[type="password"]').as("PasswordInputField");
+
+    cy.intercept("POST", "http://localhost:4000/public/akura/login").as("loginUser");
+
+    cy.get("@EmailInputField").type(email);
+    cy.get("@PasswordInputField").type(password);
+
+    cy.get("@LoginButton").click();
+
+    cy.wait("@loginUser").then((loggedUser) => {
+        expect(loggedUser.response.statusCode).eq(200);
+
+        cy.getAllLocalStorage().then((result) => {
+            expect(result).to.deep.equal({
+                "http://localhost:3000": {
+                    token: loggedUser.response.body.token,
+                    user: JSON.stringify(loggedUser.response.body.info.user)
+                }
+            })
+        });
+    });
+
+
+
+    cy.url().should("include", "profile");
+})

@@ -66,6 +66,7 @@
   },
   "devDependencies": {
     "chance": "^1.1.11",
-    "cypress": "^12.17.2"
+    "cypress": "^12.17.2",
+    "cypress-xpath": "^2.0.1"
   }
 }
