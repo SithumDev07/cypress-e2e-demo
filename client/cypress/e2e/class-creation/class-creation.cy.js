@@ -39,7 +39,7 @@ describe('Create class', () => {
                 cy.get("@InstructorDropDownInput").invoke("attr", "placeholder").should("eq", "Select instructor");
             });
 
-            it.only("should focus and blur the select instructor dropdown", () => {
+            it("should focus and blur the select instructor dropdown", () => {
                 cy.get("@InstructorDropDownInput").type("something").should('have.focus').blur().should('not.have.focus');
             });
 
@@ -123,6 +123,7 @@ describe('Create class', () => {
         describe("Select date", () => {
             beforeEach(() => {
                 cy.get('[data-cy=select-grade]').find('input').as('DateSelectDropdown');
+                cy.get('[data-cy=select-grade-wrapper]').as('DateSelectDropdownWrapper');
             });
 
             it("should select grade dropdown exists", () => {
@@ -136,6 +137,31 @@ describe('Create class', () => {
             it("should focus and blur the date dropdown", () => {
                 cy.get("@DateSelectDropdown").type("something").should('have.focus').blur().should('not.have.focus');
             });
+
+            describe("Date selection", () => {
+
+                beforeEach(() => {
+                    cy.get("@DateSelectDropdown").click();
+                });
+
+                it("should contains two groups", () => {
+
+                    cy.get('.MuiAutocomplete-groupLabel').should("have.length", 2);
+
+                });
+
+                it.only("should contains group labels", () => {
+
+                    cy.get('.MuiAutocomplete-groupLabel').then(($labels) => {
+                        expect($labels.get(0).innerText).to.eq("Weekdays");
+                        expect($labels.get(1).innerText).to.eq("Weekends");
+                    });
+
+                });
+
+            });
+
+
         });
 
 
