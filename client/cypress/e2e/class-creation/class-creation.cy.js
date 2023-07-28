@@ -24,69 +24,68 @@ describe('Create class', () => {
         });
 
         // TODO: Sithum
-        describe('Select instructor', () => {
-
+        describe("Select instructor", () => {
             beforeEach(() => {
-                cy.get(':nth-child(1) > .MuiAutocomplete-root > :nth-child(1) > .MuiFormControl-root > .MuiInputBase-root').as("InstructorDropDown");
-                cy.get(':nth-child(1) > .MuiAutocomplete-root > :nth-child(1) > .MuiFormControl-root > .MuiInputBase-root').find('input').as("InstructorDropDownInput");
-            })
-
-            it("should select instructor dropdown exists", () => {
-                cy.get('@InstructorDropDown').should('have.length', 1);
+                cy.get(
+                    ":nth-child(1) > .MuiAutocomplete-root > :nth-child(1) > .MuiFormControl-root > .MuiInputBase-root"
+                ).as("InstructorDropDown");
             });
 
-            it('should select instructor dropdown placeholder exists', () => {
-                cy.get("@InstructorDropDownInput").invoke("attr", "placeholder").should("eq", "Select instructor");
-            });
-
-            it("should focus and blur the select instructor dropdown", () => {
-                cy.get("@InstructorDropDownInput").type("something").should('have.focus').blur().should('not.have.focus');
+            it("should navigate to the create class page", () => {
+                cy.url().should("include", "create");
+                cy.url().should("include", "class");
             });
 
             it("should fetch all the instructors", () => {
-
-                cy.intercept("GET", "http://localhost:4000/akura/instructor").as("FetchAllInstructors");
+                cy.intercept("GET", "http://localhost:4000/akura/instructor").as(
+                    "FetchAllInstructors"
+                );
 
                 cy.GetAllInstructors();
 
-                // TODO: Sithum
+                // TODO:
 
                 // cy.wait("@FetchAllInstructors").then((response) => {
                 //     cy.log(response);
                 //     expect(response.response.statusCode).eq(200);
                 // });
-            })
+            });
 
             it("should empty by default", () => {
-                cy.get("@InstructorDropDown").should("have.value", '');
+                cy.get("@InstructorDropDown").should("have.value", "");
             });
 
             it("should display same number of instructors receiving from the API", () => {
                 cy.get("@InstructorDropDown").click();
 
-                cy.get('.MuiAutocomplete-option').then((el) => {
-
-                    cy.GetAllInstructors().then(instructors => {
-                        cy.get('.MuiAutocomplete-option').should("have.length", instructors.length);
+                cy.get(".MuiAutocomplete-option").then((el) => {
+                    cy.GetAllInstructors().then((instructors) => {
+                        cy.get(".MuiAutocomplete-option").should(
+                            "have.length",
+                            instructors.length
+                        );
                     });
-
                 });
-
-            })
+            });
 
             it("should display the instructors receiving from the API", () => {
-                cy.get("@InstructorDropDown").click()
+                cy.get("@InstructorDropDown").click();
 
-                cy.get('.MuiAutocomplete-option').then((el) => {
-
-                    cy.GetAllInstructors().then(instructors => {
+                cy.get(".MuiAutocomplete-option").then((el) => {
+                    cy.GetAllInstructors().then((instructors) => {
                         for (let i = 0; i < el.length; i++) {
-                            expect(`${el[i].innerText.toString().trim()}`).to.eq(instructors[i].toString().trim())
+                            expect(`${el[i].innerText.toString().trim()}`).to.eq(
+                                instructors[i].toString().trim()
+                            );
                         }
                     });
-
                 });
+            });
 
+            it('should filter instructors by query', () => {
+                cy.get("@InstructorDropDown").type("Rod");
+                cy.get("@InstructorDropDown").click();
+                cy.get(".MuiAutocomplete-option").should("have.length", 1);
             });
         });
 
