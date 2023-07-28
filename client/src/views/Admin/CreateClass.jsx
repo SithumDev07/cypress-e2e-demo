@@ -273,6 +273,7 @@ const CreateClass = () => {
                                         groupBy={(option)=>option.type}
                                         disabled={false}
                                         name="grade"
+                                        data-cy={"select-grade-wrapper"}
                                         getOptionLabel={(option) => option.label}
                                         renderInput={(params) => (
                                             <TextValidator
@@ -292,6 +293,7 @@ const CreateClass = () => {
                                                 errorMessages={[
                                                     'This field is required',
                                                 ]}
+                                                data-cy={"select-grade"}
                                             />
                                         )}
                                         onChange={(e, newValue) => {
