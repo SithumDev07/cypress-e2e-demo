@@ -553,6 +553,7 @@ const CreateClass = () => {
                                         onChange={(e) => {
                                             setPaymentLink(e.target.value)
                                         }}
+                                        data-cy={"payment-link"}
                                         // validators={[
                                         //     'required',
                                         //     'matchRegexp:^[+-]?[0-9]{1,10}(?:\.[0-9]{2})?$',
