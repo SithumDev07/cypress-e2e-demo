@@ -120,4 +120,10 @@ describe('Create class', () => {
 
     });
 
+
+    //TODO: Theruni
+    describe("Select paymentLink", () => {
+
+    });
+
 })
