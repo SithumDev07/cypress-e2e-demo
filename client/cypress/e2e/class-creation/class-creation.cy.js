@@ -123,7 +123,7 @@ describe('Create class', () => {
         describe("Select date", () => {
             beforeEach(() => {
                 cy.get('[data-cy=select-grade]').find('input').as('DateSelectDropdown');
-                cy.get('[data-cy=select-grade-wrapper]').as('DateSelectDropdownWrapper');
+                cy.get('[data-cy=select-grade-wrapper]').as('DateSelectDropdownWrapper'); // TODO: If not needed, remove (remove the test-id also)
             });
 
             it("should select grade dropdown exists", () => {
@@ -140,21 +140,88 @@ describe('Create class', () => {
 
             describe("Date selection", () => {
 
+                const days = [
+                    {
+                        type : 'Weekdays',
+                        label : 'Monday',
+                        // value : 'group',
+                    },
+                    {
+                        type : 'Weekdays',
+                        label : 'Tuesday',
+                        // value : 'group',
+                    },
+                    {
+                        type : 'Weekdays',
+                        label : 'Wednesday',
+                        // value : 'group',
+                    },
+                    {
+                        type : 'Weekdays',
+                        label : 'Thursday',
+                        // value : 'group',
+                    },
+                    {
+                        type : 'Weekdays',
+                        label : 'Friday',
+                        // value : 'group',
+                    },
+                    {
+                        type : 'Weekends',
+                        label : 'Saturday',
+                        // value : 'group',
+                    },
+                    {
+                        type : 'Weekends',
+                        label : 'Sunday',
+                        // value : 'group',
+                    },
+
+                ]
+
                 beforeEach(() => {
                     cy.get("@DateSelectDropdown").click();
                 });
 
-                it("should contains two groups", () => {
+                it("should contains two label groups", () => {
 
                     cy.get('.MuiAutocomplete-groupLabel').should("have.length", 2);
 
                 });
 
-                it.only("should contains group labels", () => {
+                it("should contains group labels", () => {
 
                     cy.get('.MuiAutocomplete-groupLabel').then(($labels) => {
                         expect($labels.get(0).innerText).to.eq("Weekdays");
                         expect($labels.get(1).innerText).to.eq("Weekends");
+                    });
+
+                });
+
+                it("should all the days in week exists", () => {
+                    cy.get('.MuiAutocomplete-option').should("have.length", 7);
+                });
+
+                it("should display all weekdays inside the dropdown", () => {
+
+                    cy.get('.MuiAutocomplete-option').then(($option) => {
+
+                        days.filter((day) => day.type === "Weekdays").map((day, index) => {
+                            expect(`${$option[index].innerText.toString().trim()}`).to.eq(day.label.toString().trim());
+                        })
+
+                    });
+
+                });
+
+                it("should display all weekends inside the dropdown", () => {
+
+                    cy.get('.MuiAutocomplete-option').then(($option) => {
+
+                        days.filter((day) => day.type === "Weekends").reverse().map((day, index) => {
+                            expect(`${$option[days.length - index - 1].innerText.toString().trim()}`).to.eq(day.label.toString().trim());
+                        })
+
                     });
 
                 });
