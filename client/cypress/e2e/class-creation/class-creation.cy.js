@@ -140,48 +140,41 @@ describe('Create class', () => {
 
             describe("Date selection", () => {
 
-                const days = [
-                    {
-                        type : 'Weekdays',
-                        label : 'Monday',
-                        // value : 'group',
-                    },
-                    {
-                        type : 'Weekdays',
-                        label : 'Tuesday',
-                        // value : 'group',
-                    },
-                    {
-                        type : 'Weekdays',
-                        label : 'Wednesday',
-                        // value : 'group',
-                    },
-                    {
-                        type : 'Weekdays',
-                        label : 'Thursday',
-                        // value : 'group',
-                    },
-                    {
-                        type : 'Weekdays',
-                        label : 'Friday',
-                        // value : 'group',
-                    },
-                    {
-                        type : 'Weekends',
-                        label : 'Saturday',
-                        // value : 'group',
-                    },
-                    {
-                        type : 'Weekends',
-                        label : 'Sunday',
-                        // value : 'group',
-                    },
-
-                ]
-
                 beforeEach(() => {
                     cy.get("@DateSelectDropdown").click();
                 });
+
+                const days = [
+                    {
+                        type: 'Weekdays',
+                        label: 'Monday',
+                    },
+                    {
+                        type: 'Weekdays',
+                        label: 'Tuesday',
+                    },
+                    {
+                        type: 'Weekdays',
+                        label: 'Wednesday',
+                    },
+                    {
+                        type: 'Weekdays',
+                        label: 'Thursday',
+                    },
+                    {
+                        type: 'Weekdays',
+                        label: 'Friday',
+                    },
+                    {
+                        type: 'Weekends',
+                        label: 'Saturday',
+                    },
+                    {
+                        type: 'Weekends',
+                        label: 'Sunday',
+                    },
+
+                ];
 
                 it("should contains two label groups", () => {
 
@@ -226,22 +219,34 @@ describe('Create class', () => {
 
                 });
 
+                it("should select a day", () => {
+                    cy.get('.MuiAutocomplete-option').then(($element) => {
+                        $element.click();
+                        cy.get("@DateSelectDropdown").should('have.value', $element[0].innerText);
+                    })
+                });
+
+                it("should filter days" , () => {
+                    cy.get("@DateSelectDropdown").type("Mon");
+                    cy.get("@DateSelectDropdown").click();
+                    cy.get('.MuiAutocomplete-option').should('have.length', 1);
+                });
+
             });
 
-
         });
 
-
-    })
-
-    describe("Unauthorized users", () => {
-
-        // TODO:
-        it("should not navigate to create class", () => {
-
-        });
 
     });
 
 
 })
+
+describe("Unauthorized users", () => {
+
+    // TODO:
+    it("should not navigate to create class", () => {
+
+    });
+
+});
