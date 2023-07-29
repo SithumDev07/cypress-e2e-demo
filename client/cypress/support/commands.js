@@ -86,3 +86,20 @@ Cypress.Commands.add("isStrongPassword", (password) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordRegex.test(password);
   });
+
+  Cypress.Commands.add('validateNIC', (nic) => {
+    const newNICRegex = /^[0-9]{9}[VX]|[0-9]{12}$/;
+    const pastNICRegex = /^([0-9]{2}([0-3]{1}|[5-8]{1})[0-9]{6}[VX])|([0-9]{12})$/;
+    return newNICRegex.test(nic) || pastNICRegex.test(nic);
+  });
+  
+  // Define the custom Cypress command to check password strength
+  Cypress.Commands.add("isStrongPassword", (password) => {
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasDigit = /\d/.test(password);
+    const hasSpecialSymbol = /[\W_]/.test(password);
+    const isLongEnough = password.length >= 8;
+  
+    return hasUppercase && hasLowercase && hasDigit && hasSpecialSymbol && isLongEnough;
+  });
