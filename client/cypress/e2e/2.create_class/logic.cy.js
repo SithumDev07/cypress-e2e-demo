@@ -169,7 +169,7 @@ describe('Create Class', () => {
       cy.get('@contactInputField').parents('.MuiFormControl-root').children().contains("This field is required")
     })
 
-    it("validate email", () => {
+    it.only("validate email", () => {
 
       // check with username 
       cy.get('@emailInputField').type('abc')
@@ -249,12 +249,29 @@ describe('Create Class', () => {
       
       cy.get('@emailInputField').clear()
 
+      // check with username | @  | domainName | . | domain
+      cy.get('@emailInputField').clear().type('nisal@gmail.com')
+      cy.get('.Mui-error').should("not.exist","Email is invalid")
+      
+      cy.get('@emailInputField').clear()
+      
+      // check with username with fullstop | @  | domainName | . | domain
+      cy.get('@emailInputField').clear().type('nisal.perera@gmail.com')
+      cy.get('.Mui-error').should("not.exist","Email is invalid")
+      
+      cy.get('@emailInputField').clear()
+      
+      // check with username ending with fullstop and numbers | @  | domainName | . | domain
+      cy.get('@emailInputField').clear().type('nisal.123@gmail.com')
+      cy.get('.Mui-error').should("not.exist","Email is invalid")
+      
+      cy.get('@emailInputField').clear()
 
+      // check for required
+      cy.get('@submitButton').click() 
+      cy.get('.Mui-error').contains("Contact number is invalid").should("not.exist")
+      cy.get('@emailInputField').parents('.MuiFormControl-root').children().contains("This field is required")
 
     })
-
-
-
-  })
-  
+  })  
 })
