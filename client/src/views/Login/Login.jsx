@@ -33,7 +33,7 @@ const Login = () => {
     const res = await AuthServices.login(formData);
     console.log(res);
 
-    if (res.status < 300) {
+    if (res?.status < 300) {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.info.user));
       if (res.data.info.user.userType === 1) {
@@ -56,7 +56,7 @@ const Login = () => {
         navigate("/profile");
       }
       // handleRedirect()
-    } else if (res.status > 399) {
+    } else if (res?.status > 399) {
       setError(true);
       setAlert(true);
       setMessage(res.data.errors[0].msg);
