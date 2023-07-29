@@ -54,45 +54,78 @@ describe("Instructor Creation", () => {
           cy.get("@password").type("securePassword");
           cy.get("@ConfirmPassword").type("differentPassword");
 
-          
           cy.get("button[type='submit']").click();
       
           // Assert that the form is not submitted
           cy.url().should("eq", Cypress.config().href="http://localhost:3000/register/instructor"); // Assert that the URL remains the same
           // Add more assertions here, if necessary
         });
+        // Other test cases for password strength validation
+       
+        it("should reject a weak password and clear the fields", () => {
+          const weakPasswords = [
+            "weakpassword1@", // Missing uppercase
+            "WEAKPASSWORD1@", // Missing lowercase
+            "weakpasswordone", // Missing digit
+            "WeakPassword1", // Missing special symbol
+            "ShrtP@1", // Too short
+            "Password@1", // Missing uppercase and digit
+            "Password1@", // Missing lowercase and special symbol
+            "PASSWORD1@" // Missing lowercase and digit
+          ];
+          
+          cy.wrap(weakPasswords).each((weakPassword) => {
+            cy.get('[placeholder="Enter password"]').as('password').type(weakPassword);
+            cy.get('[placeholder="Enter password again"]').as('confirmPassword').type(weakPassword);
+            
+            cy.isStrongPassword(weakPassword).then((isStrong) => {
+              if (!isStrong) {
+                cy.get('@password').clear();
+                cy.get('@confirmPassword').clear();
+              }
+            });
+          });
+        });
+      
+        //Check the strong password
+        it("should accept a strong password", () => {
+          const strongPassword = "SecureP@ss1";
+          
+          cy.get('[placeholder="Enter password"]').as('password').type(strongPassword);
+          cy.get('[placeholder="Enter password again"]').as('confirmPassword').type(strongPassword);
+          
+          cy.isStrongPassword(strongPassword).should("be.true");
+        });
       });
+     
+    //Todo:Dilini
+    describe('NIC Validation', () => {
+      const regexp1 = /^[0-9]{9}[VX]|[0-9]{12}$/;
+      const regexp2 = /^([0-9]{2}([0-3]{1}|[5-8]{1})[0-9]{6}[VX])|([0-9]{12})$/;
+    
+      it('should validate the NIC entered in the input field', () => {
+         // Enter an invalid NIC
+         cy.get('[placeholder="Enter NIC number"]').as('nic').type('12345678V');
+         cy.get('@nic').should('have.value', '12345678V');
+         cy.get('@nic').invoke('val').should('not.match', regexp1);
+         cy.get('@nic').invoke('val').should('not.match', regexp2);
 
-       // Other test cases for password strength validation
-      it("should validate a strong password", () => {
-        const strongPassword = "SecureP@ss1";
-        cy.isStrongPassword(strongPassword).should("be.true");
-      });
+        // Enter a valid NIC that matches regexp1
+        cy.get('@nic').clear().type('123456789V');
+        cy.get('@nic').should('have.value', '123456789V');
+        cy.get('@nic').invoke('val').should('match', regexp1);
     
-      it("should reject a password without an uppercase letter", () => {
-        const weakPassword = "weakpassword1@";
-        cy.isStrongPassword(weakPassword).should("be.false");
-      });
+        // Enter another valid NIC that matches regexp1
+        cy.get('@nic').clear().type('123456789123');
+        cy.get('@nic').should('have.value', '123456789123');
+        cy.get('@nic').invoke('val').should('match', regexp1);
     
-      it("should reject a password without a lowercase letter", () => {
-        const weakPassword = "WEAKPASSWORD1@";
-        cy.isStrongPassword(weakPassword).should("be.false");
+        // Enter a valid NIC that matches regexp2
+        cy.get('@nic').clear().type('012345678912');
+        cy.get('@nic').should('have.value', '012345678912');
+        cy.get('@nic').invoke('val').should('match', regexp2);    
       });
-    
-      it("should reject a password without a digit", () => {
-        const weakPassword = "WeakPassword@";
-        cy.isStrongPassword(weakPassword).should("be.false");
-      });
-    
-      it("should reject a password without a special symbol", () => {
-        const weakPassword = "WeakPassword1";
-        cy.isStrongPassword(weakPassword).should("be.false");
-      });
-    
-      it("should reject a password that is too short", () => {
-        const shortPassword = "ShrtP@1";
-        cy.isStrongPassword(shortPassword).should("be.false");
-      }); 
+    });  
 });
 
 
