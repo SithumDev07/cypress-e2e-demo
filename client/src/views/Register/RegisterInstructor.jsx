@@ -124,10 +124,13 @@ const RegisterStudent = () => {
                                     validators={[
                                         'required',
                                         'matchRegexp:^[A-Za-z]{1,40}$',
+                                        'maxStringLength:40'
+
                                     ]}
                                     errorMessages={[
                                         'This field is required',
                                         'Name is invalid',
+                                        'Name is too long',
                                     ]}
                                 />
                             </Grid>
@@ -161,10 +164,13 @@ const RegisterStudent = () => {
                                     validators={[
                                         'required',
                                         'matchRegexp:^[A-Za-z]{1,40}$',
+                                        'maxStringLength:40'
+
                                     ]}
                                     errorMessages={[
                                         'This field is required',
                                         'Name is invalid',
+                                        'Name is too long',
                                     ]}
                                 />
                             </Grid>
@@ -197,7 +203,7 @@ const RegisterStudent = () => {
                                     }}
                                     validators={[
                                         'required',
-                                        'matchRegexp:^[0-9]{10}$',
+                                        'matchRegexp:^[0]{1}[0-9]{9}$',
                                     ]}
                                     errorMessages={[
                                         'This field is required',
@@ -234,11 +240,14 @@ const RegisterStudent = () => {
                                     }}
                                     validators={[
                                         'required',
-                                        'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                                        'matchRegexp:^[a-zA-Z][a-zA-Z0-9.]{0,}[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z]{1,4}$',
+                                        'maxStringLength:40',
+
                                     ]}
                                     errorMessages={[
                                         'This field is required',
                                         'Email is invalid',
+                                        'Email is too long',
                                     ]}
                                 />
                             </Grid>
