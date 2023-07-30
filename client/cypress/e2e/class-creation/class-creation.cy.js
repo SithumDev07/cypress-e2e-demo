@@ -80,6 +80,12 @@ describe("Create class", () => {
         });
       });
     });
+
+    it.only('should filter instructors by query', () => {
+        cy.get("@InstructorDropDown").type("Rod");
+        cy.get("@InstructorDropDown").click();
+        cy.get(".MuiAutocomplete-option").should("have.length", 1);
+    });
   });
 
   // TODO: Malithi
