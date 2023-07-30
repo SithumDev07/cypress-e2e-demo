@@ -41,7 +41,6 @@ describe('Create Class', () => {
       cy.get('@cancelButton').contains('Cancel').should('exist')
       cy.get('@submitButton').contains('Submit').should('exist')
     })
-
     
     it("validate first name", () => {
 
@@ -119,7 +118,7 @@ describe('Create Class', () => {
     
     it("validate contact number", () => {
 
-      // // check for numbers 
+      // check for letters 
       cy.get('@contactInputField').type('abc')
       cy.get('.Mui-error').contains("Contact number is invalid").should('be.visible')
       
@@ -169,7 +168,7 @@ describe('Create Class', () => {
       cy.get('@contactInputField').parents('.MuiFormControl-root').children().contains("This field is required")
     })
 
-    it.only("validate email", () => {
+    it("validate email", () => {
 
       // check with username 
       cy.get('@emailInputField').type('abc')
@@ -271,6 +270,27 @@ describe('Create Class', () => {
       cy.get('@submitButton').click() 
       cy.get('.Mui-error').contains("Contact number is invalid").should("not.exist")
       cy.get('@emailInputField').parents('.MuiFormControl-root').children().contains("This field is required")
+
+    })
+
+    it.only("should register instructor", () => {
+      cy.get("@firstNameInputField").type('nisal')
+      cy.get("@lastNameInputField").type('perera')
+      cy.get("@contactInputField").type('0715566777')
+      cy.get("@emailInputField").type('nisal.perera11@gmail.com')
+      cy.get("@nicInputField").type('991883468V')
+      cy.get("@accNumberInputField").type('296154134')
+      cy.get("@subjectInputField").first().click()
+      cy.get('[role="option"]').first().click();
+      cy.get("@passwordInputField").type('Nisal@123')
+      cy.get("@verifyPasswordInputField").type('Nisal@123')
+      
+      cy.intercept("POST", "http://localhost:4000/akura/user").as("registerInstructor")
+      
+      cy.get("@submitButton").click()
+      cy.get("@registerInstructor").its("response.statusCode").should("eq", 200);
+
+
 
     })
   })  

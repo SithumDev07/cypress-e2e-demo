@@ -365,7 +365,7 @@ const RegisterStudent = () => {
                                     }}
                                     validators={[
                                         'required',
-                                        'matchRegexp:^[0-9]{20}$',
+                                        'matchRegexp:^[0-9]{5,20}$',
                                     ]}
                                     errorMessages={[
                                         'This field is required',
@@ -392,10 +392,11 @@ const RegisterStudent = () => {
                                     getOptionLabel={(option) => option.label}
                                     renderInput={(params) => (
                                         <TextValidator
-                                            color='green'
-                                            {...params}
-                                            // className=" w-full"
-                                            placeholder="Select examination level"
+                                        color='green'
+                                        {...params}
+                                        // className=" w-full"
+                                            name="subject"
+                                            placeholder="Select subject"
                                             value={subject}
                                             disabled={false}
                                             InputLabelProps={{shrink: false}}
