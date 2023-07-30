@@ -38,14 +38,14 @@ describe("Create class", () => {
         cy.get("@InstructorDropDown").should("have.length", 1);
       });
 
-      it.only("should select instructor dropdown placeholder exists", () => {
+      it("should select instructor dropdown placeholder exists", () => {
         cy.get("@InstructorDropDown")
           .invoke("attr", "placeholder")
           .should("eq", "Select instructor");
       });
 
       it("should focus and blur the select instructor dropdown", () => {
-        cy.get("@InstructorDropDownInput")
+        cy.get("@InstructorDropDown")
           .type("something")
           .should("have.focus")
           .blur()
