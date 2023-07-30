@@ -302,7 +302,29 @@ describe('Create class', () => {
             });
         });
 
+        //TODO: Theruni
+        describe("Select classFee", () => {
+            beforeEach(() => {
+                cy.get('[data-cy=class-fee]').find("input").as("ClassFeeTextField");
+            });
 
+            it("should class fee text field should exists", () => {
+                cy.get("@ClassFeeTextField").should("be.visible")
+            });
+
+            it("should class fee text field placeholder exists", () => {
+                cy.get("@ClassFeeTextField").invoke("attr", "placeholder").should("eq", "Enter class fee amount");
+            });
+
+            it("should focus and blur the class fee text field", () => {
+                cy.get("@ClassFeeTextField").type("something").should("have.focus").blur().should("not.have.focus");
+            });
+
+            it("should test a invalid class fee and show error message", () => {
+                cy.get("@ClassFeeTextField").type("something");
+                cy.contains("Admission fee is invalid");
+            });
+        });
     })
 
     describe("Unauthorized users", () => {

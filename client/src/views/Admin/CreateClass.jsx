@@ -474,6 +474,7 @@ const CreateClass = () => {
                                             'Admission fee is invalid',
                                             'Only positive amounts are acceptable'
                                         ]}
+                                        data-cy={"class-fee"}
                                     />
                                 </Grid>
 
