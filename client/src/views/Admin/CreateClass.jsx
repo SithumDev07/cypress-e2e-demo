@@ -346,9 +346,10 @@ const CreateClass = () => {
                                                     errorMessages={[
                                                         'This field is required',
                                                     ]} 
-                                                    
+                                                    data-cy={"start-time-picker"}
                                                 />
                                             }
+                                            
                                         />
                                     </LocalizationProvider>
                                 </Grid>       
@@ -394,6 +395,7 @@ const CreateClass = () => {
                                                     ]} 
                                                 />
                                             }
+                                            
                                         />
                                     </LocalizationProvider>
                                 </Grid>       

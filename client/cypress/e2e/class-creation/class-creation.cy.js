@@ -349,6 +349,35 @@ describe('Create class', () => {
                 cy.contains("Admission fee is invalid");
             });
         });
+
+        describe("Select time picker", () => {
+            it.only("Should open time picker", ()=>{
+                cy.get('[data-cy=start-time-picker]').click();
+
+                cy.get('.MuiCalendarOrClockPicker-root').within(() => {
+
+                cy.contains('7').realClick()   // choose 12 hours
+                cy.contains('30').realClick()   // choose 30 minutes
+                cy.contains('PM').realClick()   // choose 12 hours
+                
+                })
+
+                cy.get('.MuiDialogActions-root').within(() => {
+                    cy.contains('OK').realClick()   // choose 12 hours
+                })
+
+                cy.get('[data-cy=start-time-picker]').within(()=>{
+                    cy.get('input[value="07:30 PM"]')
+                })
+
+                // verify value
+                // cy.get('input[placeholder="hh:mm (a|p)m"]').should('have.attr', 'value', '12:30 PM')
+
+                // // or
+                // cy.get('input[value="07:30 PM"]')
+            })
+            
+        })
     })
 
     describe("Unauthorized users", () => {
