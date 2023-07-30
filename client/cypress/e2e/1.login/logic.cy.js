@@ -76,7 +76,7 @@ describe("Login Page", () => {
       cy.get('input[type="email"]').as("EmailInputField");
       cy.get('input[type="password"]').as("PasswordInputField");
 
-      // cy.intercept("POST", "http://localhost:4000/login")
+      //cy.intercept("POST", "http://localhost:4000/login")
     });
 
     it("Should redirect unauthenticated user to login page", () => {
