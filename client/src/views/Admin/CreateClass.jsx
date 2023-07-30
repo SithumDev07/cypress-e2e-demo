@@ -100,6 +100,7 @@ const CreateClass = () => {
             <ValidatorForm
                 onSubmit={handleSubmit}
                 onError={handleError}
+                data-cy={"create-class-form"}
             >
                 {loaded ?
                     <MainContainer>

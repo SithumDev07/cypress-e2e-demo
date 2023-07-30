@@ -236,16 +236,26 @@ describe('Create class', () => {
         });
 
 
+        describe("Submission", () => {
+
+            it.only("should submit button exists", () => {
+
+                cy.get("button[type='submit']").should("exist").should("be.visible").should("be.enabled");
+
+            });
+
+        });
+
     });
 
+
+    describe("Unauthorized users", () => {
+
+        // TODO:
+        it("should not navigate to create class", () => {
+
+        });
+
+    });
 
 })
-
-describe("Unauthorized users", () => {
-
-    // TODO:
-    it("should not navigate to create class", () => {
-
-    });
-
-});
