@@ -408,6 +408,61 @@ describe("Create class", () => {
     //     cy.get('input[value="06:00 AM"]').should("have.length", 1);
     //   });
     });
+
+    describe("submit button", () => {
+      beforeEach(() => {
+        cy.get('button[type="submit"]').as("SubmitButton");
+      });
+
+      it("should have a submit button", () => {
+        cy.get("@SubmitButton").should("exist");
+      });
+
+      it("should show error messages", () => {
+        cy.get("@SubmitButton").click()
+
+        cy.contains("This field is required");
+      });
+
+      it.only("should navigate to classes page", () => {
+        // select instructor
+        cy.get(
+          ":nth-child(1) > .MuiAutocomplete-root > :nth-child(1) > .MuiFormControl-root > .MuiInputBase-root"
+        ).as("InstructorDropDown");
+        cy.get("@InstructorDropDown").click();
+        cy.get(".MuiAutocomplete-option").first().click();
+
+        // select class type
+        cy.get('[placeholder="Select class type"]').as("classAutocomplete");
+        cy.get("@classAutocomplete").click();
+        cy.get('[role="option"]').first().click();
+        
+
+        // select grade
+        cy.get('[data-cy="grade"] input').as("gradesAutoCompleteInput");
+        cy.get("@gradesAutoCompleteInput").click();
+        cy.get(".MuiAutocomplete-option").first().click();
+
+        // select date
+        cy.get("[data-cy=select-grade]").find("input").as("DateSelectDropdown");
+        cy.get("@DateSelectDropdown").click();
+        cy.get(".MuiAutocomplete-option").first().click()
+
+        // enter admission fee
+        cy.get("[data-cy=admission-fee]").type("1500");
+
+        // enter class fee
+        cy.get("[data-cy=class-fee]").type("2000");
+
+        // select hall
+        cy.get('[placeholder="Select hall"]').as("hallAutocomplete");
+        cy.get("@hallAutocomplete").click();
+        cy.get('[role="option"]').first().click();
+
+        // enter payment link
+        cy.get("[data-cy=payment-link]").type("https://stackoverflow.com/");
+      })
+    })
   });
 
   describe("Unauthorized users", () => {

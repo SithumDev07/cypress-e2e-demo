@@ -243,6 +243,7 @@ const CreateClass = () => {
                                                 errorMessages={[
                                                     'This field is required',
                                                 ]}
+                                                data-cy={"grade"}
                                             />
                                         )}
                                         onChange={(e, newValue) => {
