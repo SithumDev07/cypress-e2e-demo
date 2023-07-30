@@ -235,7 +235,7 @@ describe("Create class", () => {
     //TODO : Sandamini
 
     describe("Select Grade", () => {
-      it.only("should focus and blur the grade dropdown", () => {
+      it("should focus and blur the grade dropdown", () => {
         // Find the input element inside the div with data-cy="select-grades"
         cy.get('[data-cy="select-grades"] input').as("gradesAutoCompleteInput");
 
@@ -253,7 +253,7 @@ describe("Create class", () => {
         cy.get('[role="option"]').should("have.length", 8);
       });
 
-      it.only("should verify all the grade are included", () => {
+      it("should verify all the grade are included", () => {
         cy.get('[data-cy="select-grades"]').as("gradesAutoComplete");
 
         // cy.get('[data-cy="select-grades"]').as("gradesAutoComplete");
@@ -279,7 +279,7 @@ describe("Create class", () => {
     });
 
     describe("Select Hall", () => {
-      it.only("should open and blur the hall dropdown", () => {
+      it("should open and blur the hall dropdown", () => {
         cy.get('[placeholder="Select hall"]').as("hallAutocomplete");
 
         cy.get("@hallAutocomplete").click();
@@ -305,7 +305,7 @@ describe("Create class", () => {
     });
 
     describe("Submission", () => {
-      it.only("should submit button exists", () => {
+      it("should submit button exists", () => {
         cy.get("button[type='submit']")
           .should("exist")
           .should("be.visible")

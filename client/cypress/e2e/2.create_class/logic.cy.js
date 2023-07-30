@@ -169,7 +169,7 @@ describe('Create Class', () => {
       cy.get('@contactInputField').parents('.MuiFormControl-root').children().contains("This field is required")
     })
 
-    it.only("validate email", () => {
+    it("validate email", () => {
 
       // check with username 
       cy.get('@emailInputField').type('abc')
