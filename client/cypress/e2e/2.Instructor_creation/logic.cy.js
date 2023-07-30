@@ -14,6 +14,116 @@ describe("Instructor Creation", () => {
         cy.get("@CreateInstructorButton").click();
     })
 
+    describe("Select First Name", () => {
+      beforeEach(() => {
+          cy.get('[data-cy=first-name]').find("input").as("firstName");
+      });
+
+      it("should first name text field should exists", () => {
+          cy.get("@firstName").should("be.visible")
+      });
+
+      it("should first name text field placeholder exists", () => {
+          cy.get("@firstName").invoke("attr", "placeholder").should("eq", "Enter first name");
+      });
+
+      it("should focus and blur the first name text field", () => {
+          cy.get("@firstName").type("firstName").should("have.focus").blur().should("not.have.focus");
+      });
+  });
+
+  describe("Select Last Name", () => {
+    beforeEach(() => {
+        cy.get('[data-cy=last-name]').find("input").as("lastName");
+    });
+
+    it("should last name text field should exists", () => {
+        cy.get("@lastName").should("be.visible")
+    });
+
+    it("should last name text field placeholder exists", () => {
+        cy.get("@lastName").invoke("attr", "placeholder").should("eq", "Enter last name");
+    });
+
+    it("should focus and blur the last name text field", () => {
+        cy.get("@lastName").type("lastName").should("have.focus").blur().should("not.have.focus");
+    });
+
+});
+
+describe("Select contact number", () => {
+  beforeEach(() => {
+      cy.get('[data-cy=contact-number]').find("input").as("contactNumber");
+  });
+
+  it("should contact number text field should exists", () => {
+      cy.get("@contactNumber").should("be.visible")
+  });
+
+  it("should contact number text field placeholder exists", () => {
+      cy.get("@contactNumber").invoke("attr", "placeholder").should("eq", "Enter contact number");
+  });
+
+  it("should focus and blur the contact number text field", () => {
+      cy.get("@contactNumber").type("0716613876").should("have.focus").blur().should("not.have.focus");
+  });
+
+});
+
+describe("Select email address", () => {
+  beforeEach(() => {
+      cy.get('[data-cy=email-address]').find("input").as("email");
+  });
+
+  it("should email text field should exists", () => {
+      cy.get("@email").should("be.visible")
+  });
+
+  it("should email text field placeholder exists", () => {
+      cy.get("@email").invoke("attr", "placeholder").should("eq", "Enter email address");
+  });
+
+  it("should focus and blur the email text field", () => {
+      cy.get("@email").type("dilininadeesha2018@gmail.com").should("have.focus").blur().should("not.have.focus");
+  });
+});
+
+describe("Select NIC", () => {
+  beforeEach(() => {
+      cy.get('[data-cy=nic-number]').find("input").as("nic");
+  });
+
+  it("should first name text field should exists", () => {
+      cy.get("@nic").should("be.visible")
+  });
+
+  it("should NIC text field placeholder exists", () => {
+      cy.get("@nic").invoke("attr", "placeholder").should("eq", "Enter NIC number");
+  });
+
+  it("should focus and blur the NIC text field", () => {
+      cy.get("@nic").type("978263925v").should("have.focus").blur().should("not.have.focus");
+  });
+});
+
+describe("Select Account number", () => {
+  beforeEach(() => {
+      cy.get('[data-cy=account-number]').find("input").as("accnum");
+  });
+
+  it("should Account number text field should exists", () => {
+      cy.get("@accnum").should("be.visible")
+  });
+
+  it("should Account number text field placeholder exists", () => {
+      cy.get("@accnum").invoke("attr", "placeholder").should("eq", "Enter Account Number");
+  });
+
+  it("should focus and blur the Account number text field", () => {
+      cy.get("@accnum").type("785889655522548").should("have.focus").blur().should("not.have.focus");
+  });
+});
+
     //Todo:Dilini
     describe("Select Subject", () => {
         it('should open and blur the Subject type dropdown', () => {
