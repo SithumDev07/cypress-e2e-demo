@@ -135,6 +135,7 @@ describe("Create class", () => {
         ); // TODO: If not needed, remove (remove the test-id also)
       });
 
+      // should fail
       it("should select grade dropdown exists", () => {
         cy.get('[placeholder="Select grade"]').should("have.length", 1);
       });
@@ -346,6 +347,7 @@ describe("Create class", () => {
           .should("not.have.focus");
       });
 
+      // should fail
       it("should test a invalid url format", () => {
         cy.get("@PaymentLinkTextField").type("something");
 
@@ -376,6 +378,7 @@ describe("Create class", () => {
         });
       });
 
+      // should fail
       it("should test a invalid url", () => {
         cy.get("@PaymentLinkTextField").type("https://hihfg.com/");
 
@@ -467,6 +470,7 @@ describe("Create class", () => {
         cy.get("@StartTimePicker").click();
       });
 
+      // should fail
       it("should display the default value as 6:00 AM", () => {
         cy.get('input[value="06:00 AM"]').should("have.length", 1);
       });
