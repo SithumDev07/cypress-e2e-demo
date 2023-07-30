@@ -125,7 +125,30 @@ describe("Instructor Creation", () => {
         cy.get('@nic').should('have.value', '012345678912');
         cy.get('@nic').invoke('val').should('match', regexp2);    
       });
-    });  
+    });
+    
+    describe("Select First Name", () => {
+      beforeEach(() => {
+          cy.get('[data-cy=first-name]').find("input").as("firstName");
+      });
+
+      it("should first name text field should exists", () => {
+          cy.get("@firstName").should("be.visible")
+      });
+
+      it("should first name text field placeholder exists", () => {
+          cy.get("@firstName").invoke("attr", "placeholder").should("eq", "Enter first name");
+      });
+
+      it("should focus and blur the first name text field", () => {
+          cy.get("@firstName").type("something").should("have.focus").blur().should("not.have.focus");
+      });
+
+      it("should test a invalid first name and show error message", () => {
+          cy.get("@firstName").type("something");
+          cy.contains("First name fee is invalid");
+      });
+  });
 });
 
 
