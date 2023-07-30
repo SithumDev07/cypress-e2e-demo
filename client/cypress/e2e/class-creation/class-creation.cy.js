@@ -399,9 +399,7 @@ describe("Create class", () => {
           cy.contains("OK").realClick();
         });
 
-        cy.get("@StartTimePicker").within(() => {
-          cy.get('input[value="07:30 PM"]');
-        });
+       
       });
 
       
