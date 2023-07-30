@@ -145,6 +145,7 @@ const CreateClass = () => {
                                                     errorMessages={[
                                                         'This field is required',
                                                     ]}
+                                                    data-cy={"select-instructor"}
                                                 />
                                             )}
                                             onChange={(e, newValue) => {
@@ -349,9 +350,10 @@ const CreateClass = () => {
                                                     errorMessages={[
                                                         'This field is required',
                                                     ]} 
-                                                    
+                                                    data-cy={"start-time-picker"}
                                                 />
                                             }
+                                            
                                         />
                                     </LocalizationProvider>
                                 </Grid>       
@@ -397,6 +399,7 @@ const CreateClass = () => {
                                                     ]} 
                                                 />
                                             }
+                                            
                                         />
                                     </LocalizationProvider>
                                 </Grid>       
@@ -438,6 +441,7 @@ const CreateClass = () => {
                                             'Admission fee is invalid',
                                             'Only positive amounts are acceptable'
                                         ]}
+                                        data-cy={"admission-fee"}
                                     />
                                 </Grid>
                                 <Grid
@@ -477,6 +481,7 @@ const CreateClass = () => {
                                             'Admission fee is invalid',
                                             'Only positive amounts are acceptable'
                                         ]}
+                                        data-cy={"class-fee"}
                                     />
                                 </Grid>
 
@@ -556,6 +561,7 @@ const CreateClass = () => {
                                         onChange={(e) => {
                                             setPaymentLink(e.target.value)
                                         }}
+                                        data-cy={"payment-link"}
                                         // validators={[
                                         //     'required',
                                         //     'matchRegexp:^[+-]?[0-9]{1,10}(?:\.[0-9]{2})?$',
