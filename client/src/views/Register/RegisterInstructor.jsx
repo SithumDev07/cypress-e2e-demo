@@ -104,7 +104,7 @@ const RegisterStudent = () => {
                                 <SubTitle title="First Name" required/>
                                 <TextValidator
                                     color='green'
-                                    
+                                    data-cy={"first-name"}
                                     fullWidth 
                                     placeholder="Enter first name"
                                     name="firstName"
@@ -147,6 +147,7 @@ const RegisterStudent = () => {
                                     color='green'
                                     fullWidth 
                                     placeholder="Enter last name"
+                                    data-cy={"last-name"}
                                     name="lastName"
                                     InputLabelProps={{
                                         shrink: false,
@@ -188,6 +189,7 @@ const RegisterStudent = () => {
                                     fullWidth 
                                     placeholder="Enter contact number"
                                     name="contact"
+                                    data-cy={"contact-number"}
                                     InputLabelProps={{
                                         shrink: false,
                                     }}
@@ -225,6 +227,7 @@ const RegisterStudent = () => {
                                     fullWidth 
                                     placeholder="Enter email address"
                                     name="email"
+                                    data-cy={"email-address"}
                                     InputLabelProps={{
                                         shrink: false,
                                     }}
@@ -311,6 +314,7 @@ const RegisterStudent = () => {
                                     fullWidth 
                                     placeholder="Enter NIC number"
                                     name="nic"
+                                    data-cy={"nic-number"}
                                     InputLabelProps={{
                                         shrink: false,
                                     }}
@@ -349,6 +353,7 @@ const RegisterStudent = () => {
                                     color='green'
                                     fullWidth 
                                     placeholder="Enter Account Number"
+                                    data-cy={"account-number"}
                                     name="accNumber"
                                     InputLabelProps={{
                                         shrink: false,
@@ -396,6 +401,7 @@ const RegisterStudent = () => {
                                             {...params}
                                             // className=" w-full"
                                             placeholder="Select examination level"
+                                            data-cy={"examination-level"}
                                             value={subject}
                                             disabled={false}
                                             InputLabelProps={{shrink: false}}
