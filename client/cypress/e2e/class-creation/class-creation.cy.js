@@ -28,11 +28,11 @@ describe("Create class", () => {
         cy.get(
           ":nth-child(1) > .MuiAutocomplete-root > :nth-child(1) > .MuiFormControl-root > .MuiInputBase-root"
         ).as("InstructorDropDown");
-        cy.get(
-          ":nth-child(1) > .MuiAutocomplete-root > :nth-child(1) > .MuiFormControl-root > .MuiInputBase-root"
-        )
-          .find("input")
-          .as("InstructorDropDownInput");
+      });
+
+      it("should navigate to the create class page", () => {
+        cy.url().should("include", "create");
+        cy.url().should("include", "class");
       });
 
       it("should select instructor dropdown exists", () => {
@@ -98,6 +98,12 @@ describe("Create class", () => {
           });
         });
       });
+
+      it("should filter instructors by query", () => {
+        cy.get("@InstructorDropDown").type("Rod");
+        cy.get("@InstructorDropDown").click();
+        cy.get(".MuiAutocomplete-option").should("have.length", 1);
+      });
     });
 
     // TODO: Malithi
@@ -149,47 +155,40 @@ describe("Create class", () => {
       });
 
       describe("Date selection", () => {
+        beforeEach(() => {
+          cy.get("@DateSelectDropdown").click();
+        });
+
         const days = [
           {
             type: "Weekdays",
             label: "Monday",
-            // value : 'group',
           },
           {
             type: "Weekdays",
             label: "Tuesday",
-            // value : 'group',
           },
           {
             type: "Weekdays",
             label: "Wednesday",
-            // value : 'group',
           },
           {
             type: "Weekdays",
             label: "Thursday",
-            // value : 'group',
           },
           {
             type: "Weekdays",
             label: "Friday",
-            // value : 'group',
           },
           {
             type: "Weekends",
             label: "Saturday",
-            // value : 'group',
           },
           {
             type: "Weekends",
             label: "Sunday",
-            // value : 'group',
           },
         ];
-
-        beforeEach(() => {
-          cy.get("@DateSelectDropdown").click();
-        });
 
         it("should contains two label groups", () => {
           cy.get(".MuiAutocomplete-groupLabel").should("have.length", 2);
@@ -232,6 +231,93 @@ describe("Create class", () => {
               });
           });
         });
+
+        it("should select a day", () => {
+          cy.get(".MuiAutocomplete-option").then(($element) => {
+            $element.click();
+            cy.get("@DateSelectDropdown").should(
+              "have.value",
+              $element[0].innerText
+            );
+          });
+        });
+
+        it("should filter days", () => {
+          cy.get("@DateSelectDropdown").type("Mon");
+          cy.get("@DateSelectDropdown").click();
+          cy.get(".MuiAutocomplete-option").should("have.length", 1);
+        });
+      });
+    });
+
+    //TODO : Sandamini
+    describe("Select Grade", () => {
+      it("should focus and blur the grade dropdown", () => {
+        // Find the input element inside the div with data-cy="select-grades"
+        cy.get('[data-cy="select-grades"] input').as("gradesAutoCompleteInput");
+
+        // Set focus on the grade dropdown input
+        cy.get("@gradesAutoCompleteInput").focus();
+
+        // Trigger the blur event on the focused dropdown input
+        cy.get("@gradesAutoCompleteInput").blur();
+
+        cy.get("@gradesAutoCompleteInput").click();
+
+        cy.get('[role="option"]').should("have.length.above", 0);
+
+        // Optionally, you can also check the total number of options in the dropdown
+        cy.get('[role="option"]').should("have.length", 8);
+      });
+
+      it("should verify all the grade are included", () => {
+        cy.get('[data-cy="select-grades"]').as("gradesAutoComplete");
+
+        // cy.get('[data-cy="select-grades"]').as("gradesAutoComplete");
+        cy.get("@gradesAutoComplete").click();
+
+        // Check if "Grade 6" to "Grade 13"  are present in the dropdown
+        cy.get('[role="option"]').should("contain.text", "Grade 6");
+
+        cy.get('[role="option"]').should("contain.text", "Grade 7");
+
+        cy.get('[role="option"]').should("contain.text", "Grade 8");
+
+        cy.get('[role="option"]').should("contain.text", "Grade 9");
+
+        cy.get('[role="option"]').should("contain.text", "Grade 10");
+
+        cy.get('[role="option"]').should("contain.text", "Grade 11");
+
+        cy.get('[role="option"]').should("contain.text", "Grade 12");
+
+        cy.get('[role="option"]').should("contain.text", "Grade 13");
+      });
+    });
+
+    describe("Select Hall", () => {
+      it("should open and blur the hall dropdown", () => {
+        cy.get('[placeholder="Select hall"]').as("hallAutocomplete");
+
+        cy.get("@hallAutocomplete").click();
+
+        cy.get("@hallAutocomplete").blur();
+
+        cy.get("@hallAutocomplete").click();
+
+        // TODO: Test case for dropdown options should have a separate test case (not inside this test case)
+
+        cy.get('[role="option"]').should("have.length.above", 0); // TODO: Since there are only two options to choose from. We can specify the length as 2.
+
+        // Optionally, you can also check the total number of options in the dropdown
+        cy.get('[role="option"]').should("have.length", 3);
+
+        //click the first option
+
+        cy.get('[role="option"]').first().click(); // TODO: After selecting the first item, we can ensure that selected item is 'Group Class'
+
+        // After selecting the first item, you can ensure that the selected item is 'Hall A'
+        cy.get("@hallAutocomplete").should("have.value", "Hall A");
       });
     });
 
@@ -398,15 +484,11 @@ describe("Create class", () => {
         cy.get(".MuiDialogActions-root").within(() => {
           cy.contains("OK").realClick();
         });
-
-       
       });
 
-      
-
-    //   it.only("should display the default value as 6:00 AM", () => {
-    //     cy.get('input[value="06:00 AM"]').should("have.length", 1);
-    //   });
+      //   it.only("should display the default value as 6:00 AM", () => {
+      //     cy.get('input[value="06:00 AM"]').should("have.length", 1);
+      //   });
     });
 
     describe("submit button", () => {
@@ -414,17 +496,24 @@ describe("Create class", () => {
         cy.get('button[type="submit"]').as("SubmitButton");
       });
 
+      it("should submit button exists", () => {
+        cy.get("button[type='submit']")
+          .should("exist")
+          .should("be.visible")
+          .should("be.enabled");
+      });
+
       it("should have a submit button", () => {
         cy.get("@SubmitButton").should("exist");
       });
 
       it("should show error messages", () => {
-        cy.get("@SubmitButton").click()
+        cy.get("@SubmitButton").click();
 
         cy.contains("This field is required");
       });
 
-      it.only("should navigate to classes page", () => {
+      it("should navigate to classes page", () => {
         // select instructor
         cy.get(
           ":nth-child(1) > .MuiAutocomplete-root > :nth-child(1) > .MuiFormControl-root > .MuiInputBase-root"
@@ -436,7 +525,6 @@ describe("Create class", () => {
         cy.get('[placeholder="Select class type"]').as("classAutocomplete");
         cy.get("@classAutocomplete").click();
         cy.get('[role="option"]').first().click();
-        
 
         // select grade
         cy.get('[data-cy="grade"] input').as("gradesAutoCompleteInput");
@@ -446,7 +534,7 @@ describe("Create class", () => {
         // select date
         cy.get("[data-cy=select-grade]").find("input").as("DateSelectDropdown");
         cy.get("@DateSelectDropdown").click();
-        cy.get(".MuiAutocomplete-option").first().click()
+        cy.get(".MuiAutocomplete-option").first().click();
 
         // enter admission fee
         cy.get("[data-cy=admission-fee]").type("1500");
@@ -461,8 +549,8 @@ describe("Create class", () => {
 
         // enter payment link
         cy.get("[data-cy=payment-link]").type("https://stackoverflow.com/");
-      })
-    })
+      });
+    });
   });
 
   describe("Unauthorized users", () => {

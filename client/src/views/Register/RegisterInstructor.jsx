@@ -104,7 +104,7 @@ const RegisterStudent = () => {
                                 <SubTitle title="First Name" required/>
                                 <TextValidator
                                     color='green'
-                                    
+                                    data-cy={"first-name"}
                                     fullWidth 
                                     placeholder="Enter first name"
                                     name="firstName"
@@ -124,10 +124,13 @@ const RegisterStudent = () => {
                                     validators={[
                                         'required',
                                         'matchRegexp:^[A-Za-z]{1,40}$',
+                                        'maxStringLength:40'
+
                                     ]}
                                     errorMessages={[
                                         'This field is required',
                                         'Name is invalid',
+                                        'Name is too long',
                                     ]}
                                 />
                             </Grid>
@@ -144,6 +147,7 @@ const RegisterStudent = () => {
                                     color='green'
                                     fullWidth 
                                     placeholder="Enter last name"
+                                    data-cy={"last-name"}
                                     name="lastName"
                                     InputLabelProps={{
                                         shrink: false,
@@ -161,10 +165,13 @@ const RegisterStudent = () => {
                                     validators={[
                                         'required',
                                         'matchRegexp:^[A-Za-z]{1,40}$',
+                                        'maxStringLength:40'
+
                                     ]}
                                     errorMessages={[
                                         'This field is required',
                                         'Name is invalid',
+                                        'Name is too long',
                                     ]}
                                 />
                             </Grid>
@@ -182,6 +189,7 @@ const RegisterStudent = () => {
                                     fullWidth 
                                     placeholder="Enter contact number"
                                     name="contact"
+                                    data-cy={"contact-number"}
                                     InputLabelProps={{
                                         shrink: false,
                                     }}
@@ -197,7 +205,7 @@ const RegisterStudent = () => {
                                     }}
                                     validators={[
                                         'required',
-                                        'matchRegexp:^[0-9]{10}$',
+                                        'matchRegexp:^[0]{1}[0-9]{9}$',
                                     ]}
                                     errorMessages={[
                                         'This field is required',
@@ -219,6 +227,7 @@ const RegisterStudent = () => {
                                     fullWidth 
                                     placeholder="Enter email address"
                                     name="email"
+                                    data-cy={"email-address"}
                                     InputLabelProps={{
                                         shrink: false,
                                     }}
@@ -234,11 +243,14 @@ const RegisterStudent = () => {
                                     }}
                                     validators={[
                                         'required',
-                                        'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                                        'matchRegexp:^[a-zA-Z][a-zA-Z0-9.]{0,}[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z]{1,4}$',
+                                        'maxStringLength:40',
+
                                     ]}
                                     errorMessages={[
                                         'This field is required',
                                         'Email is invalid',
+                                        'Email is too long',
                                     ]}
                                 />
                             </Grid>
@@ -302,6 +314,7 @@ const RegisterStudent = () => {
                                     fullWidth 
                                     placeholder="Enter NIC number"
                                     name="nic"
+                                    data-cy={"nic-number"}
                                     InputLabelProps={{
                                         shrink: false,
                                     }}
@@ -317,11 +330,13 @@ const RegisterStudent = () => {
                                     }}
                                     validators={[
                                         'required',
-                                        // 'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                                        'matchRegexp:^[0-9]{9}[VX]|[0-9]{12}$',
+                                        'matchRegexp:^([0-9]{2}([0-3]{1}|[5-8]{1})[0-9]{6}[VX])|([0-9]{12})$',
                                     ]}
                                     errorMessages={[
                                         'This field is required',
                                         'NIC number is invalid',
+                                        'NIC number is invalid....',
                                     ]}
                                 />
                             </Grid>
@@ -338,6 +353,7 @@ const RegisterStudent = () => {
                                     color='green'
                                     fullWidth 
                                     placeholder="Enter Account Number"
+                                    data-cy={"account-number"}
                                     name="accNumber"
                                     InputLabelProps={{
                                         shrink: false,
@@ -346,7 +362,7 @@ const RegisterStudent = () => {
                                         accNumber
                                     }
                                     disabled={false}
-                                    type="text"
+                                    type="number"
                                     variant="outlined"
                                     size="small"
                                     onChange={(e) => {
@@ -354,11 +370,11 @@ const RegisterStudent = () => {
                                     }}
                                     validators={[
                                         'required',
-                                        // 'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                                        'matchRegexp:^[0-9]{20}$',
                                     ]}
                                     errorMessages={[
                                         'This field is required',
-                                        'NIC number is invalid',
+                                        'Account number is invalid',
                                     ]}
                                 />
                             </Grid>
@@ -377,7 +393,7 @@ const RegisterStudent = () => {
                                     options={Subjects}
                                     groupBy={(options)=>options.level}
                                     disabled={false}
-                                    name="level"
+                                    name="subject"
                                     getOptionLabel={(option) => option.label}
                                     renderInput={(params) => (
                                         <TextValidator
@@ -385,6 +401,7 @@ const RegisterStudent = () => {
                                             {...params}
                                             // className=" w-full"
                                             placeholder="Select examination level"
+                                            data-cy={"examination-level"}
                                             value={subject}
                                             disabled={false}
                                             InputLabelProps={{shrink: false}}

@@ -100,6 +100,7 @@ const CreateClass = () => {
             <ValidatorForm
                 onSubmit={handleSubmit}
                 onError={handleError}
+                data-cy={"create-class-form"}
             >
                 {loaded ?
                     <MainContainer>
@@ -243,7 +244,7 @@ const CreateClass = () => {
                                                 errorMessages={[
                                                     'This field is required',
                                                 ]}
-                                                data-cy={"grade"}
+                                                data-cy={"select-grades"}
                                             />
                                         )}
                                         onChange={(e, newValue) => {
@@ -256,6 +257,7 @@ const CreateClass = () => {
                                                 setGrade(newValue.value)
                                             }
                                         }}
+                                        
                                     />
                                 </Grid> 
                                 <Grid
