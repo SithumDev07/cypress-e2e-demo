@@ -98,7 +98,7 @@ describe("Instructor Creation", () => {
         });
       });
      
-    //Todo:Dilini
+//     //Todo:Dilini
     describe('NIC Validation', () => {
       const regexp1 = /^[0-9]{9}[VX]|[0-9]{12}$/;
       const regexp2 = /^([0-9]{2}([0-3]{1}|[5-8]{1})[0-9]{6}[VX])|([0-9]{12})$/;
@@ -126,29 +126,23 @@ describe("Instructor Creation", () => {
         cy.get('@nic').invoke('val').should('match', regexp2);    
       });
     });
-    
-    describe("Select First Name", () => {
-      beforeEach(() => {
-          cy.get('[data-cy=first-name]').find("input").as("firstName");
-      });
 
-      it("should first name text field should exists", () => {
-          cy.get("@firstName").should("be.visible")
-      });
+//Todo Dilini
+describe('Account Number Validation', () => {
+  const accountNumberRegexp = /^[0-9]{20}$/;
 
-      it("should first name text field placeholder exists", () => {
-          cy.get("@firstName").invoke("attr", "placeholder").should("eq", "Enter first name");
-      });
+  it('should validate the account number entered in the input field', () => {
+    // Enter an invalid account number
+    cy.get('[placeholder="Enter Account Number"]').as('accountNumber').type('12345678');
+    cy.get('@accountNumber').should('have.value', '12345678');
+    cy.get('@accountNumber').invoke('val').should('not.match', accountNumberRegexp);
 
-      it("should focus and blur the first name text field", () => {
-          cy.get("@firstName").type("something").should("have.focus").blur().should("not.have.focus");
-      });
-
-      it("should test a invalid first name and show error message", () => {
-          cy.get("@firstName").type("something");
-          cy.contains("First name fee is invalid");
-      });
+    // Enter a valid account number
+    cy.get('@accountNumber').clear().type('12345678901234567890');
+    cy.get('@accountNumber').should('have.value', '12345678901234567890');
+    cy.get('@accountNumber').invoke('val').should('match', accountNumberRegexp);
   });
+});
 });
 
 
