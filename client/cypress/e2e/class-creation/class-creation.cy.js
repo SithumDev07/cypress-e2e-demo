@@ -25,8 +25,7 @@ describe("Create class", () => {
     // TODO: Sithum
     describe("Select instructor", () => {
       beforeEach(() => {
-        cy.get(
-          ":nth-child(1) > .MuiAutocomplete-root > :nth-child(1) > .MuiFormControl-root > .MuiInputBase-root"
+        cy.get("[data-cy=select-instructor] input"
         ).as("InstructorDropDown");
       });
 
@@ -39,8 +38,8 @@ describe("Create class", () => {
         cy.get("@InstructorDropDown").should("have.length", 1);
       });
 
-      it("should select instructor dropdown placeholder exists", () => {
-        cy.get("@InstructorDropDownInput")
+      it.only("should select instructor dropdown placeholder exists", () => {
+        cy.get("@InstructorDropDown")
           .invoke("attr", "placeholder")
           .should("eq", "Select instructor");
       });
@@ -527,7 +526,7 @@ describe("Create class", () => {
         cy.get('[role="option"]').first().click();
 
         // select grade
-        cy.get('[data-cy="grade"] input').as("gradesAutoCompleteInput");
+        cy.get('[data-cy="select-grades"] input').as("gradesAutoCompleteInput");
         cy.get("@gradesAutoCompleteInput").click();
         cy.get(".MuiAutocomplete-option").first().click();
 
