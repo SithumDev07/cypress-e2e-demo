@@ -243,6 +243,7 @@ const CreateClass = () => {
                                                 errorMessages={[
                                                     'This field is required',
                                                 ]}
+                                                data-cy={"select-grades"}
                                             />
                                         )}
                                         onChange={(e, newValue) => {
@@ -255,6 +256,7 @@ const CreateClass = () => {
                                                 setGrade(newValue.value)
                                             }
                                         }}
+                                        
                                     />
                                 </Grid> 
                                 <Grid

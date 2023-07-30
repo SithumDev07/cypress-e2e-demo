@@ -104,8 +104,53 @@ describe("Create class", () => {
   });
 
   //TODO : Sandamini
+
+  describe("Select Grade", () => {
+    it.only("should focus and blur the grade dropdown", () => {
+      // Find the input element inside the div with data-cy="select-grades"
+      cy.get('[data-cy="select-grades"] input').as("gradesAutoCompleteInput");
+
+      // Set focus on the grade dropdown input
+      cy.get("@gradesAutoCompleteInput").focus();
+
+      // Trigger the blur event on the focused dropdown input
+      cy.get("@gradesAutoCompleteInput").blur();
+
+      cy.get("@gradesAutoCompleteInput").click();
+
+      cy.get('[role="option"]').should("have.length.above", 0);
+
+      // Optionally, you can also check the total number of options in the dropdown
+      cy.get('[role="option"]').should("have.length", 8);
+    });
+
+    it.only("should verify all the grade are included", () => {
+      cy.get('[data-cy="select-grades"]').as("gradesAutoComplete");
+
+      // cy.get('[data-cy="select-grades"]').as("gradesAutoComplete");
+      cy.get("@gradesAutoComplete").click();
+
+      // Check if "Grade 6" to "Grade 13"  are present in the dropdown
+      cy.get('[role="option"]').should("contain.text", "Grade 6");
+
+      cy.get('[role="option"]').should("contain.text", "Grade 7");
+
+      cy.get('[role="option"]').should("contain.text", "Grade 8");
+
+      cy.get('[role="option"]').should("contain.text", "Grade 9");
+
+      cy.get('[role="option"]').should("contain.text", "Grade 10");
+
+      cy.get('[role="option"]').should("contain.text", "Grade 11");
+
+      cy.get('[role="option"]').should("contain.text", "Grade 12");
+
+      cy.get('[role="option"]').should("contain.text", "Grade 13");
+    });
+  });
+
   describe("Select Hall", () => {
-    it("should open and blur the hall dropdown", () => {
+    it.only("should open and blur the hall dropdown", () => {
       cy.get('[placeholder="Select hall"]').as("hallAutocomplete");
 
       cy.get("@hallAutocomplete").click();
